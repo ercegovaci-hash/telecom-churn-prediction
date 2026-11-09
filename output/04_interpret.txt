@@ -1,0 +1,72 @@
+Decision tree (fitted on the training set):
+n= 2666 
+
+node), split, n, loss, yval, (yprob)
+      * denotes terminal node
+
+ 1) root 2666 386 no (0.85521 0.14479)  
+   2) total_charge< 74 2441 224 no (0.90823 0.09177)  
+     4) custserv_calls< 3.5 2249 126 no (0.94398 0.05602)  
+       8) intl_plan=no 2040  48 no (0.97647 0.02353) *
+       9) intl_plan=yes 209  78 no (0.62679 0.37321)  
+        18) intl_calls>=2.5 166  35 no (0.78916 0.21084)  
+          36) intl_mins< 13.1 132   1 no (0.99242 0.00758) *
+          37) intl_mins>=13.1 34   0 yes (0.00000 1.00000) *
+        19) intl_calls< 2.5 43   0 yes (0.00000 1.00000) *
+     5) custserv_calls>=3.5 192  94 yes (0.48958 0.51042)  
+      10) total_charge>=56.7 97   3 no (0.96907 0.03093) *
+      11) total_charge< 56.7 95   0 yes (0.00000 1.00000) *
+   3) total_charge>=74 225  63 yes (0.28000 0.72000)  
+     6) vmail_plan=yes 69   6 no (0.91304 0.08696) *
+     7) vmail_plan=no 156   0 yes (0.00000 1.00000) *
+
+Variable importance (rpart):
+  total_charge       day_mins     total_mins vmail_messages     vmail_plan custserv_calls      intl_mins      intl_plan     intl_calls  avg_call_mins     intl_ratio       eve_mins     night_mins 
+          25.4           13.3           11.8            8.0            8.0            7.4            5.3            4.7            4.4            4.3            4.3            2.4            0.2 
+     day_calls      eve_calls    night_calls 
+           0.2            0.2            0.1 
+
+Tree as rules (training set):
+                                                                                                  rule customers churn_rate prediction
+ total_charge< 74.04 AND custserv_calls< 3.5 AND intl_plan=yes AND intl_calls>=2.5 AND intl_mins>=13.1        34      100.0      CHURN
+                     total_charge< 74.04 AND custserv_calls< 3.5 AND intl_plan=yes AND intl_calls< 2.5        43      100.0      CHURN
+                                   total_charge< 74.04 AND custserv_calls>=3.5 AND total_charge< 56.71        95      100.0      CHURN
+                                                                 total_charge>=74.04 AND vmail_plan=no       156      100.0      CHURN
+                                                                total_charge>=74.04 AND vmail_plan=yes        69        8.7       stay
+                                   total_charge< 74.04 AND custserv_calls>=3.5 AND total_charge>=56.71        97        3.1       stay
+                                          total_charge< 74.04 AND custserv_calls< 3.5 AND intl_plan=no      2040        2.4       stay
+ total_charge< 74.04 AND custserv_calls< 3.5 AND intl_plan=yes AND intl_calls>=2.5 AND intl_mins< 13.1       132        0.8       stay
+
+Logistic regression (stepwise AIC model) - odds ratios:
+           term                   change coefficient p_value odds_ratio or_low or_high
+   intl_planyes   has international plan      2.2161 4.5e-41       9.17   6.64   12.68
+ custserv_calls +1 customer-service call      0.5502 1.9e-35       1.73   1.59    1.89
+ vmail_messages  +10 voice-mail messages      0.0441 2.5e-02       1.55   1.06    2.29
+       day_mins          +30 day minutes      0.0122 3.7e-24       1.44   1.34    1.55
+       eve_mins      +30 evening minutes      0.0080 9.0e-10       1.27   1.18    1.37
+     night_mins        +30 night minutes      0.0037 3.2e-03       1.12   1.04    1.20
+      intl_mins  +1 international minute      0.0912 9.2e-05       1.10   1.05    1.15
+      day_calls            +10 day calls      0.0058 6.3e-02       1.06   1.00    1.13
+     intl_calls    +1 international call     -0.1122 1.2e-04       0.89   0.84    0.95
+  vmail_planyes      has voice-mail plan     -2.3218 2.5e-04       0.10   0.03    0.34
+
+Random forest permutation importance (third opinion):
+  total_charge custserv_calls      intl_plan     total_mins       day_mins      intl_mins  avg_call_mins     intl_calls     vmail_plan vmail_messages 
+         1.000          0.494          0.353          0.254          0.204          0.153          0.146          0.135          0.131          0.122 
+
+Churn rate by service calls x total charge (all 3,333 customers):
+ service_calls monthly_charge customers churn_rate_pct
+     0-3 calls  charge < 56.7      1190            5.0
+      4+ calls  charge < 56.7       117          100.0
+     0-3 calls        56.7-74      1623            5.9
+      4+ calls        56.7-74       125            3.2
+     0-3 calls   charge >= 74       253           75.1
+      4+ calls   charge >= 74        25           68.0
+
+Retention segments (all 3,333 customers):
+                                                              segment customers share_of_base churn_rate share_of_all_churners
+          High spenders without voice-mail (charge >= 74, no VM plan)       200           6.0        100                  41.4
+               Unhappy low spenders (4+ service calls, charge < 56.7)       117           3.5        100                  24.2
+ International plan, few or long intl calls (<3 calls or >= 13.1 min)       111           3.3        100                  23.0
+
+Together: 417 customers (12.5% of the base) contain 86.3% of all churners.

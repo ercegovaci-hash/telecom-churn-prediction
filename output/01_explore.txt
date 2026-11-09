@@ -1,0 +1,38 @@
+Customers: 3333  Attributes: 20 
+
+  no  yes 
+2850  483 
+Churn rate: 14.5%  -> a model that predicts 'no churn' for everyone is 85.5% accurate
+
+Unique phone numbers: 3333 of 3333 -> phone is an identifier, not a predictor
+day   charge = 0.1700 x minutes (R^2 = 1.000000) -> charge adds no information
+eve   charge = 0.0850 x minutes (R^2 = 1.000000) -> charge adds no information
+night charge = 0.0450 x minutes (R^2 = 0.999998) -> charge adds no information
+intl  charge = 0.2700 x minutes (R^2 = 0.999985) -> charge adds no information
+
+Churn rate (%) by international plan:
+  level customers churn_rate
+1    no      3010       11.5
+2   yes       323       42.4
+
+Churn rate (%) by voice-mail plan:
+  level customers churn_rate
+1    no      2411       16.7
+2   yes       922        8.7
+
+Churn rate (%) by calls to customer service:
+   level customers churn_rate
+1      0       697       13.2
+2      1      1181       10.3
+3      2       759       11.5
+4      3       429       10.3
+5      4       166       45.8
+6      5        66       60.6
+7      6        22       63.6
+8      7         9       55.6
+9      8         2       50.0
+10     9         2      100.0
+
+Mean day minutes by churn:
+   no   yes 
+175.2 206.9 

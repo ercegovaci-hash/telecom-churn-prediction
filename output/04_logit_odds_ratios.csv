@@ -1,0 +1,11 @@
+"term","change","coefficient","p_value","odds_ratio","or_low","or_high"
+"intl_planyes","has international plan",2.2161,4.5e-41,9.17,6.64,12.68
+"custserv_calls","+1 customer-service call",0.5502,1.9e-35,1.73,1.59,1.89
+"vmail_messages","+10 voice-mail messages",0.0441,0.025,1.55,1.06,2.29
+"day_mins","+30 day minutes",0.0122,3.7e-24,1.44,1.34,1.55
+"eve_mins","+30 evening minutes",0.008,9e-10,1.27,1.18,1.37
+"night_mins","+30 night minutes",0.0037,0.0032,1.12,1.04,1.2
+"intl_mins","+1 international minute",0.0912,9.2e-05,1.1,1.05,1.15
+"day_calls","+10 day calls",0.0058,0.063,1.06,1,1.13
+"intl_calls","+1 international call",-0.1122,0.00012,0.89,0.84,0.95
+"vmail_planyes","has voice-mail plan",-2.3218,0.00025,0.1,0.03,0.34

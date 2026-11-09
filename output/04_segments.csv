@@ -1,0 +1,4 @@
+"segment","customers","share_of_base","churn_rate","share_of_all_churners"
+"High spenders without voice-mail (charge >= 74, no VM plan)",200,6,100,41.4
+"Unhappy low spenders (4+ service calls, charge < 56.7)",117,3.5,100,24.2
+"International plan, few or long intl calls (<3 calls or >= 13.1 min)",111,3.3,100,23

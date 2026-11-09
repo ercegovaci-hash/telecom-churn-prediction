@@ -1,0 +1,20 @@
+Cost assumption: missed churner = 5, unnecessary offer = 1
+Theory: for calibrated probabilities the cost-optimal threshold is 1/(1+5) = 0.17
+
+Cross-validated (training set):
+                               strategy threshold cost accuracy precision recall
+                    Tree, threshold 0.5       0.5  295   0.9779    1.0000 0.8472
+           Tree, cost-optimal threshold       0.1  295   0.9779    1.0000 0.8472
+          Tree trained with loss matrix       0.5  290   0.9782    1.0000 0.8497
+          Logistic regr., threshold 0.5       0.5  742   0.9302    0.8401 0.6399
+ Logistic regr., cost-optimal threshold       0.2  527   0.9224    0.7067 0.7927
+
+Untouched test set (thresholds chosen on training CV):
+                               strategy threshold cost accuracy precision recall
+                    Tree, threshold 0.5       0.5   85   0.9745    1.0000 0.8247
+           Tree, cost-optimal threshold       0.1   85   0.9745    1.0000 0.8247
+          Tree trained with loss matrix       0.5   85   0.9745    1.0000 0.8247
+          Logistic regr., threshold 0.5       0.5  186   0.9370    0.9104 0.6289
+ Logistic regr., cost-optimal threshold       0.2  118   0.9250    0.7080 0.8247
+
+Share of tree out-of-fold probabilities that are exactly 0 or 1: 0.13 
